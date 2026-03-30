@@ -4,6 +4,7 @@ import FirebaseCore
 @main
 struct BudGetUpApp: App {
     @State private var authService: AuthService
+    @AppStorage("appearanceMode") private var appearanceMode: String = AppearanceMode.system.rawValue
 
     init() {
         FirebaseApp.configure()
@@ -14,6 +15,7 @@ struct BudGetUpApp: App {
         WindowGroup {
             RootView()
                 .environment(authService)
+                .preferredColorScheme(AppearanceMode(rawValue: appearanceMode)?.colorScheme ?? nil)
         }
         #if os(macOS)
         .windowStyle(.titleBar)

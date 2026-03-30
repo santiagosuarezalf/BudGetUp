@@ -5,6 +5,8 @@ struct AddTransactionView: View {
     @Environment(\.dismiss) private var dismiss
 
     var transaction: Transaction? = nil
+    var initialType: TransactionType = .expense
+    var initialIsDebtPayment: Bool = false
 
     @State private var titleText = ""
     @State private var amountText = ""
@@ -201,7 +203,10 @@ struct AddTransactionView: View {
             }
             .scrollDismissesKeyboard(.interactively)
             .navigationTitle(transaction == nil ? "Nueva transacción" : "Editar transacción")
-            .onAppear { loadIfEditing() }
+            .onAppear {
+                if transaction != nil { loadIfEditing() }
+                else { type = initialType; isDebtPayment = initialIsDebtPayment }
+            }
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) { Button("Cancelar") { dismiss() } }
                 ToolbarItem(placement: .confirmationAction) {

@@ -1,7 +1,7 @@
 import SwiftUI
 import Charts
 
-enum ChartMode { case radar, line }
+enum ChartMode { case radar, line, donut, bars }
 
 struct DashboardView: View {
     @Environment(AppStore.self) private var store
@@ -13,6 +13,9 @@ struct DashboardView: View {
     }()
     @State private var showHistorical = false
     @State private var showAddTransaction = false
+    @State private var fabExpanded = false
+    @State private var addTxInitialType: TransactionType = .expense
+    @State private var addTxInitialIsDebt = false
     @State private var chartMode: ChartMode = .radar
     @State private var txTypeFilter: TransactionType? = nil
     @State private var showIncomeDetail   = false
@@ -82,25 +85,45 @@ struct DashboardView: View {
         }
     }
 
+    private var categorySpendingData: [CategorySpendingPoint] {
+        store.categories
+            .filter { $0.type == .expense || $0.type == .both }
+            .compactMap { cat in
+                let spent = monthTransactions
+                    .filter { $0.type == .expense && $0.categoryId == cat.id }
+                    .reduce(0) { $0 + $1.amount }
+                guard spent > 0 else { return nil }
+                return CategorySpendingPoint(
+                    name: cat.name,
+                    amount: spent,
+                    color: Color(hex: cat.color) ?? .accentColor
+                )
+            }
+            .sorted { $0.amount > $1.amount }
+    }
+
     private var filteredMonthTransactions: [Transaction] {
         guard let f = txTypeFilter else { return monthTransactions }
         return monthTransactions.filter { $0.type == f }
     }
 
     private var fab: some View {
-        Button { showAddTransaction = true } label: {
-            Image(systemName: "plus")
-                .font(.title2.weight(.semibold))
-                .foregroundStyle(.white)
-                .frame(width: 56, height: 56)
-                .background(Color.accentColor, in: Circle())
-                .shadow(color: .accentColor.opacity(0.4), radius: 12, y: 4)
+        SpeedDialFAB(expanded: $fabExpanded, hasDebts: !store.debts.isEmpty) { type, isDebt in
+            addTxInitialType = type
+            addTxInitialIsDebt = isDebt
+            withAnimation(.spring(duration: 0.2)) { fabExpanded = false }
+            showAddTransaction = true
         }
-        .buttonStyle(.plain)
-        .padding(24)
     }
 
     var body: some View {
+        ZStack {
+            if fabExpanded {
+                Color.clear
+                    .contentShape(Rectangle())
+                    .onTapGesture { withAnimation(.spring(duration: 0.2)) { fabExpanded = false } }
+                    .ignoresSafeArea()
+            }
         ScrollView {
             VStack(spacing: 20) {
                 HStack {
@@ -141,14 +164,17 @@ struct DashboardView: View {
 
                     VStack(spacing: 12) {
                         Picker("Gráfica", selection: $chartMode) {
-                            Label("Radar", systemImage: "circle.hexagongrid.fill").tag(ChartMode.radar)
-                            Label("Línea", systemImage: "chart.line.uptrend.xyaxis").tag(ChartMode.line)
+                            Image(systemName: "circle.hexagongrid.fill").tag(ChartMode.radar)
+                            Image(systemName: "chart.line.uptrend.xyaxis").tag(ChartMode.line)
+                            Image(systemName: "chart.pie.fill").tag(ChartMode.donut)
+                            Image(systemName: "chart.bar.xaxis").tag(ChartMode.bars)
                         }
                         .pickerStyle(.segmented)
                         .padding(.horizontal, 16)
 
                         Group {
-                            if chartMode == .radar {
+                            switch chartMode {
+                            case .radar:
                                 if radarData.isEmpty {
                                     emptyChartPlaceholder(text: "Agrega gastos para ver el radar")
                                 } else {
@@ -156,11 +182,25 @@ struct DashboardView: View {
                                         .frame(height: 280)
                                         .padding(.horizontal, 32)
                                 }
-                            } else {
+                            case .line:
                                 if lineData.allSatisfy({ $0.income == 0 && $0.expenses == 0 }) {
                                     emptyChartPlaceholder(text: "Agrega transacciones para ver la línea")
                                 } else {
                                     LineChartView(data: lineData)
+                                        .padding(.horizontal, 16)
+                                }
+                            case .donut:
+                                if categorySpendingData.isEmpty {
+                                    emptyChartPlaceholder(text: "Agrega gastos para ver el donut")
+                                } else {
+                                    DonutChartView(data: categorySpendingData)
+                                        .padding(.horizontal, 16)
+                                }
+                            case .bars:
+                                if categorySpendingData.isEmpty {
+                                    emptyChartPlaceholder(text: "Agrega gastos para ver las barras")
+                                } else {
+                                    CategoryBarsView(data: categorySpendingData)
                                         .padding(.horizontal, 16)
                                 }
                             }
@@ -185,8 +225,11 @@ struct DashboardView: View {
             }
             .padding(.vertical, 8)
         }
+        } // ZStack
         .safeAreaInset(edge: .bottom, alignment: .trailing) { fab }
-        .sheet(isPresented: $showAddTransaction) { AddTransactionView() }
+        .sheet(isPresented: $showAddTransaction) {
+            AddTransactionView(initialType: addTxInitialType, initialIsDebtPayment: addTxInitialIsDebt)
+        }
         .sheet(isPresented: $showIncomeDetail) {
             MonthDetailSheet(
                 title: "Ingresos",
@@ -216,6 +259,71 @@ struct DashboardView: View {
     private func emptyChartPlaceholder(text: String) -> some View {
         Text(text).font(.caption).foregroundStyle(.secondary)
             .frame(height: 140).frame(maxWidth: .infinity)
+    }
+}
+
+// MARK: - SpeedDialFAB
+
+private struct SpeedDialFAB: View {
+    @Binding var expanded: Bool
+    let hasDebts: Bool
+    let onSelect: (TransactionType, Bool) -> Void
+
+    var body: some View {
+        VStack(alignment: .trailing, spacing: 12) {
+            if expanded {
+                if hasDebts {
+                    subButton("Pago de deuda", icon: "creditcard.fill", color: .orange, delay: 0.10) {
+                        onSelect(.expense, true)
+                    }
+                }
+                subButton("Ingreso", icon: "arrow.down.circle.fill", color: .green, delay: 0.06) {
+                    onSelect(.income, false)
+                }
+                subButton("Gasto", icon: "arrow.up.circle.fill", color: .red, delay: 0.02) {
+                    onSelect(.expense, false)
+                }
+            }
+            Button {
+                withAnimation(.spring(duration: 0.3)) { expanded.toggle() }
+            } label: {
+                Image(systemName: "plus")
+                    .rotationEffect(.degrees(expanded ? 45 : 0))
+                    .animation(.spring(duration: 0.3), value: expanded)
+                    .font(.title2.weight(.semibold))
+                    .foregroundStyle(.white)
+                    .frame(width: 56, height: 56)
+                    .background(Color.accentColor, in: Circle())
+                    .shadow(color: .accentColor.opacity(0.4), radius: 12, y: 4)
+            }
+            .buttonStyle(.plain)
+        }
+        .padding(24)
+    }
+
+    private func subButton(_ label: String, icon: String, color: Color,
+                            delay: Double, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            HStack(spacing: 10) {
+                Text(label)
+                    .font(.subheadline.weight(.medium))
+                    .foregroundStyle(.primary)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
+                    .background(.regularMaterial, in: Capsule())
+                Image(systemName: icon)
+                    .font(.title2.weight(.semibold))
+                    .foregroundStyle(color)
+                    .frame(width: 56, height: 56)
+                    .background(color.opacity(0.15), in: Circle())
+            }
+        }
+        .buttonStyle(.plain)
+        .transition(.asymmetric(
+            insertion: .move(edge: .bottom).combined(with: .opacity),
+            removal: .opacity
+        ))
+        .animation(.spring(duration: 0.3).delay(delay), value: expanded)
     }
 }
 

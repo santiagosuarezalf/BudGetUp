@@ -33,10 +33,14 @@
 		A024 /* DebtsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F024 /* DebtsView.swift */; };
 		B475CEC62F79B0C400998BED /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B475CEC52F79B0C400998BED /* FirebaseAuth */; };
 		B475CEC82F79B0C400998BED /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B475CEC72F79B0C400998BED /* FirebaseFirestore */; };
+		B4E1DC1C2F7A3AB3002B66DE /* DonutChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E1DC1B2F7A3AB3002B66DE /* DonutChartView.swift */; };
+		B4E1DC1D2F7A3AB3002B66DE /* CategoryBarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E1DC1A2F7A3AB3002B66DE /* CategoryBarsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B475CEC92F79B41E00998BED /* BudGetUp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BudGetUp.entitlements; sourceTree = "<group>"; };
+		B4E1DC1A2F7A3AB3002B66DE /* CategoryBarsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryBarsView.swift; sourceTree = "<group>"; };
+		B4E1DC1B2F7A3AB3002B66DE /* DonutChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonutChartView.swift; sourceTree = "<group>"; };
 		F001 /* BudGetUpApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudGetUpApp.swift; sourceTree = "<group>"; };
 		F002 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		F003 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
@@ -104,6 +108,8 @@
 		GRP_DASHBOARD /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
+				B4E1DC1A2F7A3AB3002B66DE /* CategoryBarsView.swift */,
+				B4E1DC1B2F7A3AB3002B66DE /* DonutChartView.swift */,
 				F007 /* DashboardView.swift */,
 				F008 /* MonthRibbonView.swift */,
 				F009 /* SummaryCardsView.swift */,
@@ -277,6 +283,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4E1DC1C2F7A3AB3002B66DE /* DonutChartView.swift in Sources */,
+				B4E1DC1D2F7A3AB3002B66DE /* CategoryBarsView.swift in Sources */,
 				A001 /* BudGetUpApp.swift in Sources */,
 				A002 /* Transaction.swift in Sources */,
 				A003 /* Category.swift in Sources */,

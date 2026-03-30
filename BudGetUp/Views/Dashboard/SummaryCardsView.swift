@@ -14,30 +14,40 @@ struct SummaryCardsView: View {
     var body: some View {
         VStack(spacing: 10) {
             HStack(spacing: 16) {
-                SummaryCard(title: "Ingresos", amount: income,   icon: "arrow.down.circle.fill", color: .green)
-                    .contentShape(Rectangle())
-                    .onTapGesture { onTapIncome?() }
-                SummaryCard(title: "Gastos",   amount: expenses, icon: "arrow.up.circle.fill",   color: .red)
-                    .contentShape(Rectangle())
-                    .onTapGesture { onTapExpenses?() }
-                SummaryCard(title: "Balance",  amount: balance,  icon: "equal.circle.fill",      color: balance >= 0 ? .blue : .orange)
-                    .contentShape(Rectangle())
-                    .onTapGesture { onTapBalance?() }
+                Button { onTapIncome?() } label: {
+                    SummaryCard(title: "Ingresos", amount: income, icon: "arrow.down.circle.fill", color: .green)
+                }
+                .buttonStyle(CardPressStyle())
+                .disabled(onTapIncome == nil)
+
+                Button { onTapExpenses?() } label: {
+                    SummaryCard(title: "Gastos", amount: expenses, icon: "arrow.up.circle.fill", color: .red)
+                }
+                .buttonStyle(CardPressStyle())
+                .disabled(onTapExpenses == nil)
+
+                Button { onTapBalance?() } label: {
+                    SummaryCard(title: "Balance", amount: balance, icon: "equal.circle.fill", color: balance >= 0 ? .blue : .orange)
+                }
+                .buttonStyle(CardPressStyle())
+                .disabled(onTapBalance == nil)
             }
 
             if debtPayments > 0 {
-                HStack(spacing: 8) {
-                    Image(systemName: "creditcard.fill").font(.caption).foregroundStyle(.secondary)
-                    Text("Pagos de deuda este mes:").font(.caption).foregroundStyle(.secondary)
-                    Spacer()
-                    Text(debtPayments.cop).font(.caption.weight(.semibold)).foregroundStyle(.secondary)
-                    Image(systemName: "chevron.right").font(.caption2).foregroundStyle(.tertiary)
+                Button { onTapDebt?() } label: {
+                    HStack(spacing: 8) {
+                        Image(systemName: "creditcard.fill").font(.caption).foregroundStyle(.secondary)
+                        Text("Pagos de deuda este mes:").font(.caption).foregroundStyle(.secondary)
+                        Spacer()
+                        Text(debtPayments.cop).font(.caption.weight(.semibold)).foregroundStyle(.secondary)
+                        Image(systemName: "chevron.right").font(.caption2).foregroundStyle(.tertiary)
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+                    .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10))
                 }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 8)
-                .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10))
-                .contentShape(Rectangle())
-                .onTapGesture { onTapDebt?() }
+                .buttonStyle(CardPressStyle())
+                .disabled(onTapDebt == nil)
             }
         }
     }
