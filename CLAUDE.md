@@ -25,7 +25,7 @@ Abrir `BudGetUp.xcodeproj` en Xcode. No hay scripts de terminal — todo se hace
 ```
 App/BudGetUpApp.swift          ← Entry point. FirebaseApp.configure() PRIMERO, luego AuthService. RootView privado maneja la lógica de auth (loading → SignInView | ContentView)
 Services/AuthService.swift     ← @MainActor @Observable. Firebase email/password auth
-Services/AppStore.swift        ← @Observable. Estado central: [Transaction], [Category], [Account]
+Services/AppStore.swift        ← @Observable. Estado central: [Transaction], [Category], [Account], [Debt]
 Services/FirestoreService.swift ← CRUD + listeners de Firestore
 Models/                        ← Structs Codable (NO SwiftData). IDs como String (UUID)
 Views/ContentView.swift        ← macOS: NavigationSplitView | iOS: TabView
@@ -56,9 +56,10 @@ users/{uid}/accounts
 
 Todos son `struct Codable` con `id: String` (UUID como String para Firestore):
 
-- **Transaction:** `amount: Int`, `type: TransactionType (.income/.expense)`, `date: Date`, `tags: [String]` (default `[]`, reemplazó `note`), `categoryId: String?`, `accountId: String?` — soporta add, update y delete. Decoder personalizado para retrocompat con documentos Firestore viejos que tenían `note`.
-- **Category:** `name`, `color` (hex String), `icon` (SF Symbol name), `type: CategoryType (.income/.expense/.both)`, `monthlyBudget: Int?`
+- **Transaction:** `amount: Int`, `type: TransactionType (.income/.expense)`, `date: Date`, `tags: [String]`, `categoryId: String?`, `accountId: String?`, `debtId: String?`, `title: String?` — decoder tolerante para retrocompat. Si `debtId != nil` es un pago de deuda.
+- **Category:** `name`, `color` (hex String), `icon` (SF Symbol name o emoji), `type: CategoryType (.income/.expense/.both)`, `monthlyBudget: Int?`
 - **Account:** `name`, `type: AccountType (.checking/.credit/.savings)`, `color` (hex String)
+- **Debt:** `name`, `type: DebtType (.creditCard/.loan)`, `currentBalance: Int`, `monthlyPayment: Int`, `color`, `interestRate: Double?`, `interestType: InterestType (.ea/.na)`, `startDate: Date?`, `initialAmount: Int?`, `termMonths: Int?`, `balanceUpdatedAt: Date` — ancla para simular saldo efectivo con interés compuesto mes a mes
 
 ## Helpers clave
 
@@ -67,6 +68,9 @@ Todos son `struct Codable` con `id: String` (UUID como String para Firestore):
 - `Int.copCompact` → `"$1.2M"` / `"$850K"` (formato compacto)
 - `Calendar.monthLabel(for:)` → `"Marzo 2026"` (locale `es_CO`)
 - `Calendar.monthKey(for:)` → `"2026-03"` (para agrupar)
+- `AppearanceMode` — enum `.system/.light/.dark` con `colorScheme: ColorScheme?`. Persiste en `@AppStorage("appearanceMode")`. Se aplica con `.preferredColorScheme(...)` en `BudGetUpApp`.
+- `CardPressStyle` — `ButtonStyle` con `scaleEffect + brightness + spring(bounce: 0.5)`. Usado en las tarjetas de resumen de `SummaryCardsView`.
+- `NavTitleMode` — enum `.large/.inline` + extensión `View.navigationTitleMode(_:)` con `#if os(iOS)` para evitar error de compilación en macOS.
 
 **`Color(hex:)`** — extensión en `CategoryBudgetView.swift` que parsea hex strings a `Color`
 
@@ -79,34 +83,52 @@ Todos son `struct Codable` con `id: String` (UUID como String para Firestore):
 ```
 ContentView
 ├── [macOS] NavigationSplitView
-│   ├── sidebar: links a DashboardView y SettingsView
+│   ├── sidebar: DashboardView, BudgetTabView, DebtsView, SettingsView
 │   └── detail: DashboardView
-└── [iOS] TabView
-    ├── DashboardView  (tab "Presupuesto")
-    └── SettingsView   (tab "Ajustes")
+└── [iOS] TabView (4 tabs)
+    ├── DashboardView   "Inicio"
+    ├── BudgetTabView   "Presupuesto"
+    ├── DebtsView       "Deuda"       ← envuelto en NavigationStack
+    └── SettingsView    "Ajustes"
 
 DashboardView
 ├── [showHistorical=false]
 │   ├── MonthRibbonView      ← cinta horizontal scrollable de meses
-│   ├── SummaryCardsView     ← tarjetas Ingresos / Gastos / Balance
-│   ├── Picker radar/línea
-│   │   ├── RadarChartView   ← custom Canvas+Path, gasto real vs presupuesto por categoría
-│   │   └── LineChartView    ← Swift Charts, ingresos vs gastos mes a mes
-│   ├── CategoryBudgetView   ← barras de progreso presupuesto vs gasto por categoría (solo si hay categorías con budget)
-│   └── TransactionListView  ← lista agrupada por día
+│   ├── SummaryCardsView     ← tarjetas Ingresos/Gastos/Balance/Deuda — tapeables con CardPressStyle
+│   ├── Picker 4 gráficas (iconos únicamente — segmented)
+│   │   ├── RadarChartView      ← gasto real vs presupuesto por categoría
+│   │   ├── LineChartView       ← ingresos vs gastos últimos 5 meses
+│   │   ├── DonutChartView      ← distribución de gasto por categoría (SectorMark)
+│   │   └── CategoryBarsView    ← barras horizontales por categoría, ordenadas por monto
+│   └── TransactionListView  ← lista agrupada por día con context menu (editar/eliminar)
 ├── [showHistorical=true]
-│   └── HistoricalView       ← lista todos los meses con mini-barras ingresos/gastos; tap navega al mes
-└── FAB (+)                  ← .safeAreaInset(edge: .bottom) — respeta tab bar en iOS
+│   └── HistoricalView       ← lista todos los meses; tap navega al mes
+└── SpeedDialFAB             ← botón + que se expande en Gasto / Ingreso / Pago de deuda
+                                Al seleccionar, abre AddTransactionView con tipo pre-configurado
+
+BudgetTabView               ← en CategoryBudgetView.swift
+├── MonthRibbonView
+├── Barras presupuesto vs gasto por categoría (incluye pagos de deuda)
+└── Sheet historial por categoría
+
+DebtsView + DebtFormView    ← en DebtsView.swift
+├── Lista de deudas con saldo efectivo simulado
+├── Formulario: tipo, saldo, cuota, tasa E.A./N.A.M.V., plazo, fecha inicio
+├── Calculadora: meses restantes, fecha estimada de pago, línea de tiempo
+└── effectiveBalance() en AppStore: simula saldo mes a mes con interés compuesto desde balanceUpdatedAt
 
 SettingsView
+├── Sección "Visualización": Picker apariencia (Sistema/Claro/Oscuro)
 ├── CategoriesView + CategoryFormView  ← CRUD categorías
-└── AccountsView + AccountFormView     ← CRUD cuentas
+├── AccountsView + AccountFormView     ← CRUD cuentas
+└── DebtsView + DebtFormView           ← CRUD deudas (también accesible desde tab Deuda)
 ```
 
 ## Consideraciones iOS vs macOS
 
 - `#if os(macOS)` / `#else` para `.windowStyle`, `.windowToolbarStyle`, `.frame(minWidth:minHeight:)`, `.menuStyle(.borderlessButton)`
 - FAB usa `.safeAreaInset(edge: .bottom, alignment: .trailing)` en el ScrollView — nunca `ZStack` con padding fijo
+- `.navigationBarTitleDisplayMode` es iOS-only — usar siempre `.navigationTitleMode(_:)` (extensión en `CurrencyFormatter.swift`)
 - `AddTransactionView` usa `.scrollDismissesKeyboard(.interactively)` en el Form
 - `INFOPLIST_KEY_UILaunchScreen_Generation = YES` en el pbxproj — sin esto iOS no usa el área completa de la pantalla (iPhone 15 Pro / Dynamic Island)
 
@@ -122,6 +144,19 @@ SettingsView
 - `BudGetUp/BudGetUp.entitlements` — solo `app-sandbox` y `network.client`
 - `BudGetUp.xcodeproj/project.pbxproj` — editado manualmente. SDKROOT=auto, SUPPORTED_PLATFORMS="macosx iphoneos iphonesimulator", IPHONEOS_DEPLOYMENT_TARGET=17.0, TARGETED_DEVICE_FAMILY="1,2", DEVELOPMENT_TEAM=4P22M73X87
 
+## Colecciones Firestore (actualizado)
+
+```
+users/{uid}/transactions
+users/{uid}/categories
+users/{uid}/accounts
+users/{uid}/debts
+```
+
 ## Lo que NO va al repo
 
 `.gitignore` excluye `GoogleService-Info.plist`, `*.sqlite`, `*.store`, `*.db`, `DerivedData/`
+
+## Repo en GitHub
+
+https://github.com/santiagosuarezalf/BudGetUp
