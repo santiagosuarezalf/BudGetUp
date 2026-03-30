@@ -1,0 +1,29 @@
+# Xcode build artifacts
+xcuserdata/
+*.xccheckout
+*.moved-aside
+DerivedData/
+*.hmap
+*.ipa
+*.xcuserstate
+*.xcscmblueprint
+
+# SwiftData / SQLite — datos personales nunca van al repo
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.store
+*.store-shm
+*.store-wal
+default.store*
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Firebase — credenciales privadas, nunca al repo
+GoogleService-Info.plist
+
+# Packages
+.build/

@@ -1,0 +1,534 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A001 /* BudGetUpApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F001 /* BudGetUpApp.swift */; };
+		A002 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = F002 /* Transaction.swift */; };
+		A003 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003 /* Category.swift */; };
+		A004 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = F004 /* Account.swift */; };
+		A005 /* CurrencyFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F005 /* CurrencyFormatter.swift */; };
+		A006 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F006 /* ContentView.swift */; };
+		A007 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F007 /* DashboardView.swift */; };
+		A008 /* MonthRibbonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F008 /* MonthRibbonView.swift */; };
+		A009 /* SummaryCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F009 /* SummaryCardsView.swift */; };
+		A010 /* RadarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F010 /* RadarChartView.swift */; };
+		A011 /* LineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F011 /* LineChartView.swift */; };
+		A012 /* TransactionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F012 /* TransactionListView.swift */; };
+		A013 /* AddTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F013 /* AddTransactionView.swift */; };
+		A014 /* CategoryBudgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F014 /* CategoryBudgetView.swift */; };
+		A015 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F015 /* SettingsView.swift */; };
+		A016 /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F016 /* CategoriesView.swift */; };
+		A017 /* AccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F017 /* AccountsView.swift */; };
+		A018 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F018 /* AppStore.swift */; };
+		A019 /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F019 /* FirestoreService.swift */; };
+		A020 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F020 /* AuthService.swift */; };
+		A021 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F021 /* SignInView.swift */; };
+		A022 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F022 /* GoogleService-Info.plist */; };
+		A023 /* Debt.swift in Sources */ = {isa = PBXBuildFile; fileRef = F023 /* Debt.swift */; };
+		A024 /* DebtsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F024 /* DebtsView.swift */; };
+		B475CEC62F79B0C400998BED /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B475CEC52F79B0C400998BED /* FirebaseAuth */; };
+		B475CEC82F79B0C400998BED /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B475CEC72F79B0C400998BED /* FirebaseFirestore */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		B475CEC92F79B41E00998BED /* BudGetUp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BudGetUp.entitlements; sourceTree = "<group>"; };
+		F001 /* BudGetUpApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudGetUpApp.swift; sourceTree = "<group>"; };
+		F002 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		F003 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		F004 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		F005 /* CurrencyFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyFormatter.swift; sourceTree = "<group>"; };
+		F006 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F007 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		F008 /* MonthRibbonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthRibbonView.swift; sourceTree = "<group>"; };
+		F009 /* SummaryCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryCardsView.swift; sourceTree = "<group>"; };
+		F010 /* RadarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadarChartView.swift; sourceTree = "<group>"; };
+		F011 /* LineChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartView.swift; sourceTree = "<group>"; };
+		F012 /* TransactionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListView.swift; sourceTree = "<group>"; };
+		F013 /* AddTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionView.swift; sourceTree = "<group>"; };
+		F014 /* CategoryBudgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryBudgetView.swift; sourceTree = "<group>"; };
+		F015 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		F016 /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
+		F017 /* AccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsView.swift; sourceTree = "<group>"; };
+		F018 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
+		F019 /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
+		F020 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		F021 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		F022 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F023 /* Debt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debt.swift; sourceTree = "<group>"; };
+		F024 /* DebtsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtsView.swift; sourceTree = "<group>"; };
+		FAPP /* BudGetUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BudGetUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BP01 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B475CEC62F79B0C400998BED /* FirebaseAuth in Frameworks */,
+				B475CEC82F79B0C400998BED /* FirebaseFirestore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		GRP_APP /* App */ = {
+			isa = PBXGroup;
+			children = (
+				F001 /* BudGetUpApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		GRP_AUTH /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				F021 /* SignInView.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		GRP_BUDGET /* Budget */ = {
+			isa = PBXGroup;
+			children = (
+				F014 /* CategoryBudgetView.swift */,
+			);
+			path = Budget;
+			sourceTree = "<group>";
+		};
+		GRP_DASHBOARD /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				F007 /* DashboardView.swift */,
+				F008 /* MonthRibbonView.swift */,
+				F009 /* SummaryCardsView.swift */,
+				F010 /* RadarChartView.swift */,
+				F011 /* LineChartView.swift */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		GRP_HELPERS /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				F005 /* CurrencyFormatter.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		GRP_MODELS /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F002 /* Transaction.swift */,
+				F003 /* Category.swift */,
+				F004 /* Account.swift */,
+				F023 /* Debt.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		GRP_PRODUCTS /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FAPP /* BudGetUp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		GRP_ROOT = {
+			isa = PBXGroup;
+			children = (
+				B475CEC92F79B41E00998BED /* BudGetUp.entitlements */,
+				GRP_SOURCE /* BudGetUp */,
+				GRP_PRODUCTS /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		GRP_SERVICES /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F018 /* AppStore.swift */,
+				F019 /* FirestoreService.swift */,
+				F020 /* AuthService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		GRP_SETTINGS /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				F015 /* SettingsView.swift */,
+				F016 /* CategoriesView.swift */,
+				F017 /* AccountsView.swift */,
+				F024 /* DebtsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		GRP_SOURCE /* BudGetUp */ = {
+			isa = PBXGroup;
+			children = (
+				F022 /* GoogleService-Info.plist */,
+				GRP_APP /* App */,
+				GRP_MODELS /* Models */,
+				GRP_VIEWS /* Views */,
+				GRP_SERVICES /* Services */,
+				GRP_HELPERS /* Helpers */,
+			);
+			path = BudGetUp;
+			sourceTree = "<group>";
+		};
+		GRP_TRANSACTIONS /* Transactions */ = {
+			isa = PBXGroup;
+			children = (
+				F012 /* TransactionListView.swift */,
+				F013 /* AddTransactionView.swift */,
+			);
+			path = Transactions;
+			sourceTree = "<group>";
+		};
+		GRP_VIEWS /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F006 /* ContentView.swift */,
+				GRP_AUTH /* Auth */,
+				GRP_DASHBOARD /* Dashboard */,
+				GRP_TRANSACTIONS /* Transactions */,
+				GRP_BUDGET /* Budget */,
+				GRP_SETTINGS /* Settings */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		TARGET1 /* BudGetUp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BCL1 /* Build configuration list for PBXNativeTarget "BudGetUp" */;
+			buildPhases = (
+				BP_SOURCES /* Sources */,
+				BP01 /* Frameworks */,
+				BP_RESOURCES /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BudGetUp;
+			productName = BudGetUp;
+			productReference = FAPP /* BudGetUp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		PROJECT /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					TARGET1 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+				};
+			};
+			buildConfigurationList = BCL_PROJECT /* Build configuration list for PBXProject "BudGetUp" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = GRP_ROOT;
+			packageReferences = (
+				B475CEC42F79B0C400998BED /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
+			productRefGroup = GRP_PRODUCTS /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				TARGET1 /* BudGetUp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BP_RESOURCES /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A022 /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BP_SOURCES /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A001 /* BudGetUpApp.swift in Sources */,
+				A002 /* Transaction.swift in Sources */,
+				A003 /* Category.swift in Sources */,
+				A004 /* Account.swift in Sources */,
+				A005 /* CurrencyFormatter.swift in Sources */,
+				A006 /* ContentView.swift in Sources */,
+				A007 /* DashboardView.swift in Sources */,
+				A008 /* MonthRibbonView.swift in Sources */,
+				A009 /* SummaryCardsView.swift in Sources */,
+				A010 /* RadarChartView.swift in Sources */,
+				A011 /* LineChartView.swift in Sources */,
+				A012 /* TransactionListView.swift in Sources */,
+				A013 /* AddTransactionView.swift in Sources */,
+				A014 /* CategoryBudgetView.swift in Sources */,
+				A015 /* SettingsView.swift in Sources */,
+				A016 /* CategoriesView.swift in Sources */,
+				A017 /* AccountsView.swift in Sources */,
+				A018 /* AppStore.swift in Sources */,
+				A019 /* FirestoreService.swift in Sources */,
+				A020 /* AuthService.swift in Sources */,
+				A021 /* SignInView.swift in Sources */,
+				A023 /* Debt.swift in Sources */,
+				A024 /* DebtsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		BC_DEBUG_PROJECT /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_CYCLES = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		BC_DEBUG_TARGET /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BudGetUp/BudGetUp.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4P22M73X87;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.santiago.BudGetUp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		BC_RELEASE_PROJECT /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_CYCLES = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_FAST_MATH = YES;
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator";
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		BC_RELEASE_TARGET /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BudGetUp/BudGetUp.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4P22M73X87;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.santiago.BudGetUp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BCL1 /* Build configuration list for PBXNativeTarget "BudGetUp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC_DEBUG_TARGET /* Debug */,
+				BC_RELEASE_TARGET /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BCL_PROJECT /* Build configuration list for PBXProject "BudGetUp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC_DEBUG_PROJECT /* Debug */,
+				BC_RELEASE_PROJECT /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B475CEC42F79B0C400998BED /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.11.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B475CEC52F79B0C400998BED /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B475CEC42F79B0C400998BED /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		B475CEC72F79B0C400998BED /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B475CEC42F79B0C400998BED /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = PROJECT /* Project object */;
+}
